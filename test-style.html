@@ -1,9 +1,18 @@
 <!doctype html>
 <html>
 	<head>
-		<style>
-		</style>
 		<script src="tinypopup.js" type="text/javascript"></script>
+		<style>
+			#popup {
+				border-radius: 15px;
+				border: 15px solid blue;
+				padding: 15px;
+				background-color: #550000;
+			}
+			#tinypopup-shadow {
+				background-color: blue;	
+			}
+		</style>
 		<script>
 			var tp;
 			function main() {
@@ -13,18 +22,11 @@
 				evt.stopPropagation();	
 				tp.show( 400, 200 );
 			}
-			function testPopup2(evt) {
-				evt.stopPropagation();	
-				var el = document.getElementById('popup2');
-				tp.show( 400, 200, el );
-			}
 		</script>
 	</head>
 	<body onload="main();">
 		<button onclick="testPopup(event);">Test</button>
-		<button onclick="testPopup2(event);">Test2</button>
-		<div id="popup" style="background-color: white">woo</div>
-		<div id="popup2">woo2</div>
+		<div id="popup">woo</div>
 		<pre>Blah  blahBBBBBBBBBlah  blah lah  blah lah  blah lah  blah lah  blah lah  blah lah  blah lah  blah lah  blahBBBlah  blah lah  blah lah  blah Blah  blahBBBBBBBBBlah  blah lah  blah lah  blah lah  blah lah  blah lah  blah lah  blah lah  blah lah  blahBBBlah  blah lah  blah lah  blah</pre>
 
 

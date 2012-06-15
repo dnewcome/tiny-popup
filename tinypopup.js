@@ -10,7 +10,7 @@ var Tinypopup = (function(window) {
 		this.el = el;
 
 		applyStyles( el, { 
-			backgroundColor: 'white', position: 'fixed', display: 'none', zIndex: 1000 
+			position: 'fixed', display: 'none', zIndex: 1000 
 		} );
 
 		addShadow.apply(this);
