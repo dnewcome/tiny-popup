@@ -1,52 +1,63 @@
-// todo: resize with browser window
-//
 // constructor
 // id - dom element id for popup
+function applyStyles( el, obj ) {
+	for( style in obj ) {
+		if( style == 'top' || style == 'left' || style == 'width' || style == 'height' ) {
+			el.style[style] = obj[style] + 'px';
+		}
+		else {
+			el.style[style] = obj[style];
+		}
+	}
+}
+
 function tinypopup( id ) {
 	var self = this;
 	var el = document.getElementById( id );		
 	this.el = el;
+
+	applyStyles( el, { 
+		backgroundColor: 'white', position: 'absolute', display: 'none' 
+	} );
+
 	this.addShadow();
+
 	this.shadow.addEventListener( 'click', function() { self.hide(); }, false );
 	window.addEventListener( 'resize', function() { self.onResize(); }, false );
-	this.addCss( id );
 }
 
 tinypopup.prototype.onResize = function() {
-	this.shadow.style.width = window.innerWidth + 'px';
-	this.shadow.style.height = window.innerHeight + 'px';
+	var cw = window.innerWidth, 
+		ch = window.innerHeight;
 
-	var cw = window.innerWidth, ch = window.innerHeight;
-	var left = (cw-this.w)/2;
-	var top = (ch-this.h)/2;
-	this.el.style.top = top + 'px';
-	this.el.style.left = left + 'px';
-	this.el.style.width = this.w + 'px';
-	this.el.style.height = this.h + 'px';
+	applyStyles( this.shadow, { 
+		width: cw, height: ch 
+	} );
+
+	applyStyles( this.el, { 
+		top: (ch-this.h)/2, left: (cw-this.w)/2, width: this.w, height: this.h 
+	} );
 }
 
 tinypopup.prototype.addShadow = function() {
-	console.log('adding shadow');
+	var cw = window.innerWidth, 
+		ch = window.innerHeight;
+
 	var shadow = document.createElement('div');
+	this.shadow = shadow;
 	this.el.parentNode.appendChild(shadow);
 	shadow.id = 'shadow';	
-	shadow.style.backgroundColor = 'grey';	
-	shadow.style.position = 'fixed';
-	shadow.style.width = window.innerWidth + 'px';
-	shadow.style.height = window.innerHeight + 'px';
-	shadow.style.top = '0px';
-	shadow.style.left = '0px';
-	shadow.style.display = 'none';
-	this.shadow = shadow;
+
+	applyStyles( shadow, {
+		backgroundColor: 'grey', position: 'fixed', width: cw, height: ch, top: 0, left: 0, display: 'none' 
+	} );
 
 }
 
-console.log( 'loading tiny popup' );
 
 tinypopup.prototype.show = function( w, h ) {
 	this.w = w;
 	this.h = h;
-	console.log('showing popup');
 	var el = this.el;
 	console.log( el );
 	el.style.display = 'block';
@@ -69,18 +80,5 @@ tinypopup.prototype.show = function( w, h ) {
 tinypopup.prototype.hide = function() {
 	this.el.style.display = 'none';
 	this.shadow.style.display = 'none';
-}
-
-/*
- * Bare minimum embedded css to make the popup work 
- * correctly. Additional styling should be added via
- * external css rules.
- */
-tinypopup.prototype.addCss = function( id ) {
-	console.log('adding css');
-	var el = document.createElement('style');		
-	el.innerHTML = '#' + id + 
-		'{background-color:white;position:absolute;display:none}';
-	document.head.appendChild( el );
 }
 
