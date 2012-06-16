@@ -19,6 +19,9 @@ this work.
 Robust behavior - no funny stuff on different browsers with regards to 
 scaling, scrolling, window resizing, getting stuck open, etc.
 
+Mobile support - I'm aiming to fully support mobile devices, although
+I've only tested things out on iOS thus far.
+
 Nothing but what is necessary to show a centered popup dialog. No 
 extra styling beyond the css positioning code needed to make it show/hide
 properly. However, it is styleable externally using css. This is the 
