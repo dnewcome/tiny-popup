@@ -1,5 +1,14 @@
 var Tinypopup = (function(window) {
 
+	function listen(el, name, callback) {
+    if(el.addEventListener) {
+      el.addEventListener(name, callback, false);
+    }
+    else {
+      el.attachEvent('on' + name, callback);
+    }
+	}
+	
 	/* 
 	* constructor function 
 	*	id - dom element id for popup
@@ -8,6 +17,8 @@ var Tinypopup = (function(window) {
 		var self = this;
 		var el = document.getElementById( id );		
 		this.el = el;
+		this.w = 0;
+		this.h = 0;
 
 		applyStyles( el, { 
 			position: 'fixed', display: 'none', zIndex: 1000 
@@ -15,8 +26,8 @@ var Tinypopup = (function(window) {
 
 		addShadow.apply(this);
 
-		this.shadow.addEventListener( 'click', function() { self.hide(); }, false );
-		window.addEventListener( 'resize', function() { resize.apply(self); }, false );
+		listen(this.shadow, 'click', function() { self.hide(); });
+		listen(window, 'resize', function() { resize.apply(self); });
 	}
 
 	/**
@@ -48,8 +59,8 @@ var Tinypopup = (function(window) {
 	* popup window and its shadow
 	*/
 	function resize() {
-		var cw = window.innerWidth, 
-			ch = window.innerHeight;
+		var cw = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth, 
+			ch = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 		applyStyles( this.shadow, { 
 			width: cw, height: ch 
 		} );
