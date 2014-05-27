@@ -10,7 +10,12 @@
 				tp = new Tinypopup( 'popup' );			
 			}
 			function testPopup(evt) {
-				evt.stopPropagation();	
+				if(evt.stopPropagation) {
+				evt.stopPropagation();
+				}
+					else {
+              evt.cancelBubble = true;
+					}
 				tp.show( 400, 200 );
 			}
 			function testPopup2(evt) {
