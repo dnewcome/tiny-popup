@@ -1,0 +1,11 @@
+{
+  "name": "tiny-popup",
+  "version": "0.0.1",
+  "main": "tinypopup-min.js",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
+  ],
+  "dependencies": {},
+  "devDependencies": {}
+}
