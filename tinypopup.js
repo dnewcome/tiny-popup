@@ -46,8 +46,8 @@ var Tinypopup = (function(window) {
 
 		addShadow.apply(this);
 
-		listen(this.shadow, 'click', function() { self.hide(); });
-		listen(window, 'resize', function() { resize.apply(self); });
+		bind(this.shadow, 'click', this, this.hide);
+		bind(window, 'resize', this, this.resize);
         this.attachCloseButton();
 	}
 
@@ -73,7 +73,7 @@ var Tinypopup = (function(window) {
 		this.el.style.display = 'block';
 		this.shadow.style.display = 'block';
         this.attachCloseButton();
-		resize.apply(this);	
+		this.resize();	
 	}
 
 	/**
@@ -88,7 +88,7 @@ var Tinypopup = (function(window) {
 	 * internal method for calculating/recalculating sizes of
 	 * popup window and its shadow
 	 */
-	function resize() {
+	tinypopup.prototype.resize = function() {
 		var cw = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth, 
 			ch = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 		applyStyles( this.shadow, { 
@@ -151,7 +151,7 @@ var Tinypopup = (function(window) {
         if(el)  {
             listen(el, evt, (function(self) {
                 return function() {
-                    self.hide(); 
+                    callback.apply(context); 
                 };
             })(context));
         }
