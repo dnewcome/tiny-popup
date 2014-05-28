@@ -27,19 +27,10 @@
 
 var Tinypopup = (function(window) {
 
-	function listen(el, name, callback) {
-		if(el.addEventListener) {
-			el.addEventListener(name, callback, false);
-		}
-		else {
-			el.attachEvent('on' + name, callback);
-		}
-	}
-	
 	/* 
-	* constructor function 
-	*	id - dom element id for popup
-	*/
+	 * constructor function 
+	 *	id - dom element id for popup
+	 */
 	function tinypopup(el) {
 		var self = this;
 		if(!el.nodeName){
@@ -61,23 +52,17 @@ var Tinypopup = (function(window) {
 	}
 
     /**
-    * attach the close button if one is provided in the popup content
-    */
+     * attach the close button if one is provided in the popup content
+     */
     tinypopup.prototype.attachCloseButton = function() {
         this.closeButton = this.el.querySelector('.tinypopup-closebutton');		
-        if(this.closeButton)  {
-            listen(this.closeButton, 'click', (function(self) {
-                return function() {
-                    self.hide(); 
-                };
-            })(this));
-        }
+        bind(this.closeButton, 'click', this, this.hide);
     }
 
 	/**
-	* show the popup, centered in the viewable client area
-	* with given width/height
-	*/
+	 * show the popup, centered in the viewable client area
+	 * with given width/height
+	 */
 	tinypopup.prototype.show = function( w, h, content ) {
 		this.w = w;
 		this.h = h;
@@ -92,17 +77,17 @@ var Tinypopup = (function(window) {
 	}
 
 	/**
-	* hide the popup
-	*/
+	 * hide the popup
+	 */
 	tinypopup.prototype.hide = function() {
 		this.el.style.display = 'none';
 		this.shadow.style.display = 'none';
 	}
 
 	/**
-	* internal method for calculating/recalculating sizes of
-	* popup window and its shadow
-	*/
+	 * internal method for calculating/recalculating sizes of
+	 * popup window and its shadow
+	 */
 	function resize() {
 		var cw = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth, 
 			ch = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
@@ -115,8 +100,8 @@ var Tinypopup = (function(window) {
 	}
 
 	/**
-	* construct the shadow
-	*/
+	 * construct the shadow
+	 */
 	function addShadow() {
 		var shadow = this.shadow = document.createElement( 'div' );
 		this.el.parentNode.appendChild( shadow );
@@ -132,9 +117,9 @@ var Tinypopup = (function(window) {
 	}
 
 	/**
- 	* utility for applying multiple css styles to an element
- 	* allows assignment of of dimensions using numeric values
- 	*/
+ 	 * utility for applying multiple css styles to an element
+ 	 * allows assignment of of dimensions using numeric values
+ 	 */
 	function applyStyles( el, obj ) {
 		for( style in obj ) {
 			if( style == 'top' || style == 'left' || 
@@ -146,6 +131,31 @@ var Tinypopup = (function(window) {
 			}
 		}
 	}
+
+    /**
+     * small abstraction for downlevel browsers
+     */
+	function listen(el, name, callback) {
+		if(el.addEventListener) {
+			el.addEventListener(name, callback, false);
+		}
+		else {
+			el.attachEvent('on' + name, callback);
+		}
+	}
+
+    /**
+     * simple function binding
+     */
+    function bind(el, evt, context, callback) {
+        if(el)  {
+            listen(el, evt, (function(self) {
+                return function() {
+                    self.hide(); 
+                };
+            })(context));
+        }
+    }
 
 	// return the constructor function from module
 	return tinypopup;
