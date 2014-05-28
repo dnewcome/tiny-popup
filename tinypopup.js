@@ -64,7 +64,7 @@ var Tinypopup = (function(window) {
     * attach the close button if one is provided in the popup content
     */
     tinypopup.prototype.attachCloseButton = function() {
-        this.closeButton = document.getElementById('tinypopup-closebutton');		
+        this.closeButton = this.el.querySelector('.tinypopup-closebutton');		
         if(this.closeButton)  {
             listen(this.closeButton, 'click', (function(self) {
                 return function() {
