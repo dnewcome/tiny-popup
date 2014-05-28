@@ -1,28 +1,30 @@
 var Tinypopup = (function(window) {
 
 	function listen(el, name, callback) {
-    if(el.addEventListener) {
-      el.addEventListener(name, callback, false);
-    }
-    else {
-      el.attachEvent('on' + name, callback);
-    }
+		if(el.addEventListener) {
+			el.addEventListener(name, callback, false);
+		}
+		else {
+			el.attachEvent('on' + name, callback);
+		}
 	}
 	
 	/* 
 	* constructor function 
 	*	id - dom element id for popup
 	*/
-	function tinypopup( id ) {
+	function tinypopup(el) {
 		var self = this;
-		var el = document.getElementById( id );		
+		if(!el.nodeName){
+			el = document.getElementById(el);		
+		}
 		this.el = el;
 		this.w = 0;
 		this.h = 0;
 
-		applyStyles( el, { 
+		applyStyles(el, { 
 			position: 'fixed', display: 'none', zIndex: 1000 
-		} );
+		});
 
 		addShadow.apply(this);
 
