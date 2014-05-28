@@ -30,7 +30,22 @@ var Tinypopup = (function(window) {
 
 		listen(this.shadow, 'click', function() { self.hide(); });
 		listen(window, 'resize', function() { resize.apply(self); });
+        this.attachCloseButton();
 	}
+
+    /**
+    * attach the close button if one is provided in the popup content
+    */
+    tinypopup.prototype.attachCloseButton = function() {
+        this.closeButton = document.getElementById('tinypopup-closebutton');		
+        if(this.closeButton)  {
+            listen(this.closeButton, 'click', (function(self) {
+                return function() {
+                    self.hide(); 
+                };
+            })(this));
+        }
+    }
 
 	/**
 	* show the popup, centered in the viewable client area
@@ -45,6 +60,7 @@ var Tinypopup = (function(window) {
 		}
 		this.el.style.display = 'block';
 		this.shadow.style.display = 'block';
+        this.attachCloseButton();
 		resize.apply(this);	
 	}
 
