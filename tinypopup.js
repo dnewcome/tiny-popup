@@ -79,8 +79,9 @@ var Tinypopup = (function(window) {
 
 		var zIndex = parseInt( this.el.style.zIndex ) - 1;
 		applyStyles( shadow, {
-			backgroundColor: 'grey', position: 'fixed', top: 0, left: 0, 
-			display: 'none', opacity: 0.5, zIndex: zIndex
+			backgroundColor: 'gray', position: 'fixed', top: 0, left: 0,
+			display: 'none', opacity: 0.5, zIndex: zIndex,
+			filter: 'progid:DXImageTransform.Microsoft.Alpha(opacity=50)'
 		} );
 
 	}
