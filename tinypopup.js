@@ -41,7 +41,7 @@ var Tinypopup = (function(window) {
 		this.h = 0;
 
 		applyStyles(el, { 
-			position: 'fixed', display: 'none', zIndex: 1000 
+			position: 'fixed', visibility: 'none', zIndex: 1000, opacity: 0
 		});
 
 		addShadow.apply(this);
@@ -70,8 +70,10 @@ var Tinypopup = (function(window) {
 			this.el.innerHTML = '';
 			this.el.appendChild( content );
 		}
-		this.el.style.display = 'block';
+		// this.el.style.display = 'block';
+		this.el.style.visibility = 'visible';
 		this.shadow.style.display = 'block';
+		this.el.style.opacity = 1;
         this.attachCloseButton();
 		this.resize();	
 	}
@@ -80,8 +82,10 @@ var Tinypopup = (function(window) {
 	 * hide the popup
 	 */
 	tinypopup.prototype.hide = function() {
-		this.el.style.display = 'none';
+		// this.el.style.display = 'none';
+		this.el.style.visibility = 'hidden';
 		this.shadow.style.display = 'none';
+		this.el.style.opacity = 0;
 	}
 
 	/**
