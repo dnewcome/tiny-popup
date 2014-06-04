@@ -1,0 +1,22 @@
+{
+  "name": "tiny-popup",
+  "version": "0.0.2",
+  "description": "Robust, minimal, humane lightbox",
+  "main": "tinypopup-min.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dnewcome/tiny-popup.git"
+  },
+  "author": "Dan Newcome<dan@dnuke.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dnewcome/tiny-popup/issues"
+  },
+  "homepage": "https://github.com/dnewcome/tiny-popup"
+}
