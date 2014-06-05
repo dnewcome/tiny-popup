@@ -1,0 +1,28 @@
+.tinypopup-shadow {
+    background-color: gray;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    opacity: 0.5;
+    z-index: 9999;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+}
+
+.tinypopup-content {
+    position: absolute;
+    visibility: none;
+    z-index: 10000;
+    opacity: 0;
+}
+
+.tinypopup-shadow.show {
+    display: block;
+}
+
+.tinypopup-content.show {
+    visibility: visible;
+    opacity: 1;
+}

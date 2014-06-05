@@ -54,19 +54,8 @@ var Tinypopup = (function (window, document) {
         /*jshint validthis:true */
         this.shadow = document.createElement('div');
         this.shadow.id = 'tinypopup-shadow';
+        this.shadow.className = 'tinypopup-shadow';
         this.el.parentNode.appendChild(this.shadow);
-
-        var zIndex = parseInt(this.el.style.zIndex, 10) - 1;
-        applyStyles(this.shadow, {
-            backgroundColor: 'gray',
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            display: 'none',
-            opacity: 0.5,
-            zIndex: zIndex,
-            filter: 'progid:DXImageTransform.Microsoft.Alpha(opacity=50)'
-        });
     }
 
     /**
@@ -105,13 +94,7 @@ var Tinypopup = (function (window, document) {
         this.el = el;
         this.w = 0;
         this.h = 0;
-
-        applyStyles(el, {
-            position: 'fixed',
-            visibility: 'none',
-            zIndex: 1000,
-            opacity: 0
-        });
+        this.el.className = 'tinypopup-content';
 
         addShadow.apply(this);
 
@@ -135,14 +118,19 @@ var Tinypopup = (function (window, document) {
     tinypopup.prototype.show = function (w, h, content) {
         this.w = w;
         this.h = h;
+        this.shadow.className = 'tinypopup-shadow show';
+        this.el.className = 'tinypopup-content show';
+
         if (content) {
             this.el.innerHTML = '';
             this.el.appendChild(content);
         }
         // this.el.style.display = 'block';
+        /*
         this.el.style.visibility = 'visible';
         this.shadow.style.display = 'block';
         this.el.style.opacity = 1;
+        */
         this.attachCloseButton();
         this.resize();
     };
@@ -152,9 +140,8 @@ var Tinypopup = (function (window, document) {
      */
     tinypopup.prototype.hide = function () {
         // this.el.style.display = 'none';
-        this.el.style.visibility = 'hidden';
-        this.shadow.style.display = 'none';
-        this.el.style.opacity = 0;
+        this.shadow.className = 'tinypopup-shadow';
+        this.el.className = 'tinypopup-content';
     };
 
     /**
@@ -164,16 +151,6 @@ var Tinypopup = (function (window, document) {
     tinypopup.prototype.resize = function () {
         var cw = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
             ch = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-        applyStyles(this.shadow, {
-            width: cw,
-            height: ch
-        });
-        applyStyles(this.el, {
-            top: (ch - this.h) / 2,
-            left: (cw - this.w) / 2,
-            width: this.w,
-            height: this.h
-        });
     };
 
 
