@@ -6,7 +6,15 @@
 		<script>
 			var tp, tp2;
 			function main() {
-				tp = new Tinypopup('popup');			
+				tp = new Tinypopup(
+                    'popup',
+                    function (el) {
+                        console.log('show');
+                    },
+                    function (el) {
+                        console.log('hide');
+                    }
+                );			
 				tp2 = new Tinypopup(document.getElementById('popup2'));			
 				tp3 = new Tinypopup('popup');			
 			}

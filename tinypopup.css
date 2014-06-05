@@ -16,6 +16,8 @@
     visibility: none;
     z-index: 10000;
     opacity: 0;
+    width: 500px;
+    height: 500px;
 }
 
 .tinypopup-shadow.show {

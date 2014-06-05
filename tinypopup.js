@@ -85,8 +85,10 @@ var Tinypopup = (function (window, document) {
     /*
      * constructor function
      *  id - dom element id for popup
+     *  onshow - callback function for show event 
+     *  onhide - callback function for hide event 
      */
-    function tinypopup(el) {
+    function tinypopup(el, onshow, onhide) {
         /*jshint validthis:true */
         if (!el.nodeName) {
             el = document.getElementById(el);
@@ -95,6 +97,8 @@ var Tinypopup = (function (window, document) {
         this.w = 0;
         this.h = 0;
         this.el.className = 'tinypopup-content';
+        this.onshow = onshow;
+        this.onhide = onhide;
 
         addShadow.apply(this);
 
@@ -133,6 +137,7 @@ var Tinypopup = (function (window, document) {
         */
         this.attachCloseButton();
         this.resize();
+        this.onshow(this.el);
     };
 
     /**
@@ -142,6 +147,7 @@ var Tinypopup = (function (window, document) {
         // this.el.style.display = 'none';
         this.shadow.className = 'tinypopup-shadow';
         this.el.className = 'tinypopup-content';
+        this.onhide(this.el);
     };
 
     /**
