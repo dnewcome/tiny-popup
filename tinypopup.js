@@ -31,23 +31,6 @@ var Tinypopup = (function (window, document) {
     'use strict';
 
     /**
-     * utility for applying multiple css styles to an element
-     * allows assignment of of dimensions using numeric values
-     */
-    function applyStyles(el, obj) {
-        var style;
-        for (style in obj) {
-            if (obj.hasOwnProperty(style)) {
-                if (style === 'top' || style === 'left' || style === 'width' || style === 'height') {
-                    el.style[style] = obj[style] + 'px';
-                } else {
-                    el.style[style] = obj[style];
-                }
-            }
-        }
-    }
-
-    /**
      * construct the shadow
      */
     function addShadow() {
@@ -129,12 +112,6 @@ var Tinypopup = (function (window, document) {
             this.el.innerHTML = '';
             this.el.appendChild(content);
         }
-        // this.el.style.display = 'block';
-        /*
-        this.el.style.visibility = 'visible';
-        this.shadow.style.display = 'block';
-        this.el.style.opacity = 1;
-        */
         this.attachCloseButton();
         this.resize();
         this.onshow(this.el);
@@ -155,8 +132,7 @@ var Tinypopup = (function (window, document) {
      * popup window and its shadow
      */
     tinypopup.prototype.resize = function () {
-        var cw = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
-            ch = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        return;
     };
 
 
