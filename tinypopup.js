@@ -114,7 +114,9 @@ var Tinypopup = (function (window, document) {
         }
         this.attachCloseButton();
         this.resize();
-        this.onshow(this.el);
+        if(this.onshow) {
+            this.onshow(this.el);
+        }
     };
 
     /**
@@ -124,7 +126,9 @@ var Tinypopup = (function (window, document) {
         // this.el.style.display = 'none';
         this.shadow.className = 'tinypopup-shadow';
         this.el.className = 'tinypopup-content';
-        this.onhide(this.el);
+        if(this.onhide) {
+            this.onhide(this.el);
+        }
     };
 
     /**
