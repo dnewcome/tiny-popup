@@ -13,7 +13,7 @@
 
 .tinypopup-content {
     position: absolute;
-    visibility: none;
+    visibility: hidden;
     z-index: 10000;
     opacity: 0;
 }
