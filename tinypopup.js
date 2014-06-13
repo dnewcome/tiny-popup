@@ -30,6 +30,19 @@
 var Tinypopup = (function (window, document) {
     'use strict';
 
+  function applyStyles(el, obj) {
+        var style;
+        for (style in obj) {
+            if (obj.hasOwnProperty(style)) {
+                if (style === 'top' || style === 'left' || style === 'width' || style === 'height') {
+                    el.style[style] = obj[style] + 'px';
+                } else {
+                    el.style[style] = obj[style];
+                }
+            }
+        }
+    }
+
     /**
      * construct the shadow
      */
@@ -136,7 +149,10 @@ var Tinypopup = (function (window, document) {
      * popup window and its shadow
      */
     tinypopup.prototype.resize = function () {
-        return;
+        var ch = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        applyStyles(this.el, {
+            top: Math.max((ch - this.el.offsetHeight) / 2, 0)
+        });
     };
 
 
