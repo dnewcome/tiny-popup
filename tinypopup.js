@@ -105,6 +105,7 @@ var Tinypopup = (function (window, document) {
         this.el = el;
         this.w = 0;
         this.h = 0;
+        this.scrollOffset = 0;
 
         applyStyles(el, {
             position: 'fixed',
@@ -117,6 +118,7 @@ var Tinypopup = (function (window, document) {
 
         bind(this.shadow, 'click', this, this.hide);
         bind(window, 'resize', this, this.resize);
+        bind(window, 'scroll', this, this.scroll);
         this.attachCloseButton();
     }
 
@@ -127,12 +129,19 @@ var Tinypopup = (function (window, document) {
         this.closeButton = this.el.querySelector('.tinypopup-closebutton');
         bind(this.closeButton, 'click', this, this.hide);
     };
+    tinypopup.prototype.scroll = function() {
+        this.scrollOffset += window.pageYOffset; 
+        console.log('scrolling');
+        this.resize();
+    }
 
     /**
      * show the popup, centered in the viewable client area
      * with given width/height
      */
     tinypopup.prototype.show = function (w, h, content) {
+
+        this.scrollOffset = window.pageYOffset;
         this.w = w;
         this.h = h;
         if (content) {
@@ -168,8 +177,9 @@ var Tinypopup = (function (window, document) {
             width: cw,
             height: ch
         });
+        console.log(this.scrollOffset);
         applyStyles(this.el, {
-            top: (ch - this.h) / 2,
+            top: ((ch - this.h) / 2) - window.pageYOffset,
             left: (cw - this.w) / 2,
             width: this.w,
             height: this.h
