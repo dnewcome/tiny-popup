@@ -1,6 +1,6 @@
 {
   "name": "tiny-popup",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Robust, minimal, humane lightbox",
   "main": "tinypopup-min.js",
   "directories": {
