@@ -78,6 +78,25 @@ var Tinypopup = (function (window, document) {
         }
     }
 
+    /**
+     * Get array of elements given css class name and parent element
+     * for downlevel browser support
+     */
+    function getElementsByClassName(node, classname) {
+        var i,
+            j,
+            ret = [],
+            re = new RegExp('(^| )' + classname + '( |$)'),
+            els = node.getElementsByTagName("*");
+
+        for (i = 0, j = els.length; i < j; i += 1) {
+            if (re.test(els[i].className)) {
+                ret.push(els[i]);
+            }
+        }
+        return ret;
+    }
+
     /*
      * constructor function
      *  id - dom element id for popup
@@ -92,6 +111,7 @@ var Tinypopup = (function (window, document) {
         this.el = el;
         this.w = 0;
         this.h = 0;
+        this.el.style.display = "";
         this.el.className = 'tinypopup-content';
         this.onshow = onshow;
         this.onhide = onhide;
@@ -104,12 +124,21 @@ var Tinypopup = (function (window, document) {
         this.attachCloseButton();
     }
 
+
     /**
      * attach the close button if one is provided in the popup content
      */
     tinypopup.prototype.attachCloseButton = function () {
-        this.closeButton = this.el.querySelector('.tinypopup-closebutton');
-        bind(this.closeButton, 'click', this, this.hide);
+        if (this.el && this.el.querySelector) {
+            this.closeButton = this.el.querySelector('.tinypopup-closebutton');
+        }
+        else if (this.el) {
+            this.closeButton = getElementsByClassName(this.el, 'tinypopup-closebutton')[0];
+        }
+        
+        if(this.closeButton) {
+            bind(this.closeButton, 'click', this, this.hide);
+        }
     };
 
     /**
