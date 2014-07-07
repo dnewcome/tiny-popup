@@ -30,7 +30,9 @@
 var Tinypopup = (function (window, document) {
     'use strict';
 
-  function applyStyles(el, obj) {
+    var DEBOUNCE_INTERVAL = 200;
+
+    function applyStyles(el, obj) {
         var style;
         for (style in obj) {
             if (obj.hasOwnProperty(style)) {
@@ -116,6 +118,7 @@ var Tinypopup = (function (window, document) {
         this.onshow = onshow;
         this.onhide = onhide;
         this.onresize = onresize;
+        this.showing = false;
 
         addShadow.apply(this);
 
@@ -160,17 +163,29 @@ var Tinypopup = (function (window, document) {
         if(this.onshow) {
             this.onshow(this.el);
         }
+        this.showing = true;
+
+        setTimeout(
+            (function(self) {
+                return function(){
+                    // setShowing.call(self);
+                    self.showing = false;
+                };
+            })(this),
+            DEBOUNCE_INTERVAL
+        );
     };
 
     /**
      * hide the popup
      */
     tinypopup.prototype.hide = function () {
-        // this.el.style.display = 'none';
-        this.shadow.className = 'tinypopup-shadow hide';
-        this.el.className = 'tinypopup-content hide';
-        if(this.onhide) {
-            this.onhide(this.el);
+        if (!this.showing) {
+            this.shadow.className = 'tinypopup-shadow hide';
+            this.el.className = 'tinypopup-content hide';
+            if(this.onhide) {
+                this.onhide(this.el);
+            }
         }
     };
 
